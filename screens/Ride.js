@@ -9,7 +9,8 @@ import {
   Image,
   Alert,
   ToastAndroid,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import { BarCodeScanner } from "expo-barcode-scanner";
@@ -73,29 +74,20 @@ export default class RideScreen extends Component {
           // Apenas para Android
           // No iOS utilize o Alert.alert
 
-          // show(
-          //   "Você alugou a bicicleta pela próxima 1 hora. Aproveite seu passeio!!",
-          //   ToastAndroid.SHORT
-          // );
 
-          // ToastAndroid.show(
-          //   "Você alugou a bicicleta pela próxima 1 hora. Aproveite seu passeio!!",
-          //   ToastAndroid
-          // );
+        if (Platform.OS == "android") {
+           ToastAndroid.show(
+             "Você alugou a bicicleta pela próxima 1 hora. Aproveite seu passeio!!",
+             ToastAndroid.SHORT
+           );
+        } else {
+           Alert.alert(
+            "Você alugou a bicicleta pela próxima 1 hora. Aproveite seu passeio!!"
+          );
+        }
+          
 
-          // ToastAndroid.show(
-          //   "Você alugou a bicicleta pela próxima 1 hora. Aproveite seu passeio!!",
-          //   SHORT
-          // );
-
-          // ToastAndroid.show(
-          //   "Você alugou a bicicleta pela próxima 1 hora. Aproveite seu passeio!!",
-          //   ToastAndroid.SHORT
-          // );
-
-         // Alert.alert(
-         //   "Você alugou a bicicleta pela próxima 1 hora. Aproveite seu passeio!!"
-         // );
+         
 
           this.setState({
             bikeAssigned: true
@@ -229,10 +221,7 @@ export default class RideScreen extends Component {
             <TextInput
               style={[styles.textinput, { width: "82%" }]}
 
-              //onChangeText={() => this.setState({ userId: text })}
-              //onChangeText={this.setState({ userId: text })}
-              //onChangeText={text => this.setState({ userId: text })}
-              //onChangeText={(text) => this.setState({ userId: text })}
+              onChangeText={(text) => this.setState({ userId: text })}
 
               placeholder={"Id do Usuário"}
               placeholderTextColor={"#FFFFFF"}
